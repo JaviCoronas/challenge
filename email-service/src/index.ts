@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import dotEnv from 'dotenv';
 
 import EmailController from './controllers/EmailController';
+import { checkJwt } from './utils/checkJwt';
 
 
 const app = express();
@@ -11,7 +12,7 @@ app.use(bodyParser.json());
 
 const PORT = process.env.SERVER_PORT;
 
-app.post('/emails', EmailController)
+app.post('/emails', checkJwt, EmailController)
 
 app.listen(PORT, () => {
     console.log(`Email server started at port: ${PORT}`);
