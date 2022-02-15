@@ -8,3 +8,35 @@ services:
       - "40000:40000"
     env_file:
       - ./public-service/.env
+    links:
+      - subscription
+  subscription:
+    container_name: node_subscription
+    restart: on-failure
+    build: ./subscription-service/
+    ports:
+      - "40001:40001"
+    env_file:
+      - ./subscription-service/.env
+    links:
+      - mongo
+      - email
+  email:
+    container_name: node_email
+    restart: on-failure
+    build: ./email-service/
+    ports:
+      - "40002:40002"
+    env_file:
+      - ./email-service/.env
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+  mongoclient:
+    image: mongoclient/mongoclient:latest
+    container_name: mongoclient
+    hostname: mongoclient
+    ports:
+      - 3300:3000
