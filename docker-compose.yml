@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  public:
+    container_name: node_public
+    restart: on-failure
+    build: ./public-service/
+    ports:
+      - "40000:40000"
+    env_file:
+      - ./public-service/.env
