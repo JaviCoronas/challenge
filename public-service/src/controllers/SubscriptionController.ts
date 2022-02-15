@@ -23,6 +23,9 @@ export const getSubscriptionsController = async (request: Request, response: Res
     const subscriptionRes = await axios({
         url: 'http://localhost:40001/subscriptions',
         method: 'GET',
+        headers: {
+            'Authorization': request.headers.authorization || ''
+        }
     }).then(response => response.data as Subscription[])
 
     response.status(httpStatus.OK).json(subscriptionRes)
@@ -34,6 +37,9 @@ export const getSubscriptionByIdController = async (request: Request, response: 
     const subscription = await axios({
         url: 'http://localhost:40001/subscriptions/' + id,
         method: 'GET',
+        headers: {
+            'Authorization': request.headers.authorization || ''
+        }
 
     }).then(response => response.data as Subscription)
         .catch(error => console.log(error))
