@@ -26,4 +26,4 @@ Integration with login Service its not performed but you can login with this cre
 * user: admin
 * password: admin
 
-
+Helmet is used to manage the headers on responses. They can be adjusted due to the requirements.
