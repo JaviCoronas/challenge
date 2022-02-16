@@ -31,6 +31,8 @@ The api specifications and published endpoints can be found at the following lin
 
 If the project is not deployed you can find them at: _/public-service/api/api.yml_
 
+### CI/CD Pipeline
 
+Inside the three services you can find the _Jenkinsfile_ with the details to include an CI/CD.
 
 
