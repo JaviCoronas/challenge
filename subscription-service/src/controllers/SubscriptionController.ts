@@ -14,7 +14,7 @@ export const saveSubscriptionController = async (request: Request, response: Res
     try {
         const subscriptionRes = await subService.saveSubscription(subscription)
         const subId: SubscriptionDetail = { id: subscriptionRes.id }
-
+        sendEmail(request)
         response.status(httpStatus.CREATED).send(subId)
     } catch (error) {
         response.status(httpStatus.INTERNAL_SERVER_ERROR).send(new InternalServerException())

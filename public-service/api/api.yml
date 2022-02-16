@@ -1,0 +1,250 @@
+openapi: 3.0.1
+info:
+  title: Public Service Api Documentation
+  description: Public Service for Subscription
+  contact: 
+    name: Javier Coronas
+    email: javcor3@gmail.com
+  version: "1.0"
+servers:
+  - url: http://localhost:40000
+tags:
+  - name: public-service
+    description: Web service API description for public operations.
+  - name: subscription-service
+    description: Web service API description for Subscription operations.
+paths:
+  /health-check:
+    get:
+      description: HealthCheck
+      summary: HealthCheck
+      operationId: HealthCheck
+      tags:
+        - public-service
+      responses:
+        200:
+          description: OK
+          content: {}
+  /subscriptions:
+    get:
+      description: Get all Subscriptions
+      summary: Get all Subscriptions
+      operationId: getSubscriptions
+      security:
+        - bearerAuth: []
+      tags:
+        - subscription-service
+      responses:
+        200:
+          description: Subscription list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+    post:
+      description: Creates a subscrition.
+      operationId: createSubscription
+      summary: Creates a Subscription object.
+      tags:
+        - subscription-service
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+      responses:
+        201:
+          description: Subscription object created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionId'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+  /subscriptions/{id}:
+    get:
+      description: Recover all the information of a given subscription by its id.
+      summary:  Recover all the information of a given subscription by its id.
+      operationId: getSubscriptionById
+      security:
+        - bearerAuth: []
+      tags:
+        - subscription-service
+      parameters:
+        - $ref: '#/components/parameters/idParam'
+      responses:
+        200:
+          description: Subscription object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+    put:
+      summary:  Cancel subscription by id.
+      description: Cancel subscription by id.
+      operationId: CancelSubscriptionById
+      tags:
+        - subscription-service
+      parameters:
+        - $ref: '#/components/parameters/idParam'
+      responses:
+        200:
+          description: Subscription cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionId'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandledResponse'
+components:
+  schemas:
+    Subscription:
+      type: object
+      description: Subscription object
+      required: [email, dateBirth, termsAccepted, newsletterId, active]
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        gender:
+          type: string
+          enum: [MALE, FEMALE]
+        dateBirth:
+          type: string
+          format: date-time
+          example: 2021-03-16T15:42:00Z
+        termsAccepted:
+          type: boolean
+        newsletterId:
+          type: string
+        active:
+          type: boolean
+          default: true
+    SubscriptionId:
+      type: object
+      description: Subscription id object
+      properties:
+        id:
+          type: string
+    HandledResponse:
+      description: Model that represents different message of the API. Handling errors.
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        reason:
+          $ref: '#/components/schemas/Reason'
+    Reason:
+      description: Model Reason. Normally for exception responses.
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+  parameters:
+    idParam:
+      name: id
+      in: path
+      description: String id of the element to search.
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+        
