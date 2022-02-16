@@ -6,6 +6,9 @@ import helmet from 'helmet';
 import HeathCheckController from './controllers/HeathController';
 import LoginController from './controllers/LoginController';
 import { subscriptionRoutes } from './routes/subscriptionRoutes';
+import { errorHandler } from './exceptions/errorHandler';
+
+
 
 
 const app = express();
@@ -30,6 +33,8 @@ app.use(helmet.originAgentCluster());
 app.use(helmet.permittedCrossDomainPolicies());
 app.use(helmet.referrerPolicy());
 app.use(helmet.xssFilter());
+
+app.use(errorHandler)
 
 app.get('/health-check', HeathCheckController)
 app.post('/login', LoginController)

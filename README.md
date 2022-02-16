@@ -8,4 +8,12 @@ The project has been developed to pass the technical test presented. It consists
 
 This service publishes all endpoints required for subscription management. It redirects everything that comes to it to the corresponding service.
 
+#### Test the Architecture
+
+`docker-compose up -d --build`
+
+This command will execute the *docker-compose.yml* script and build the images and containers to test the whole project.
+
+In addition to this, each of the microservices can be run separately by following the instructions detailed in their READMEs.
+
 

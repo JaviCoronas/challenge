@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Request } from "express";
+import { Request, Response } from "express";
 import jwt from 'jwt-simple'
 
 

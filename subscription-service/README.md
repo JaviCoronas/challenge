@@ -1,16 +1,22 @@
 # Subscription Service
 
-This is the public microservice.
+This is the subscription microservice.
+
+## Requirements
+
+In order to test the project, you must have the following tools installed on your computer
+* Node v12
+* Docker
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-"`npm install`"
+`npm install`
 
 Install the poject and all the dependencies
 
-"`npm run dev`"
+`npm run dev`
 
 Runs the app in development mode.
 
@@ -21,5 +27,15 @@ The service has JWT token security on some of its requests.
 * Get Subscription By Id - SECURED
 * Save Subscription 
 * Cancel Subscription
+
+### Error handling
+
+The service includes error handling on login and subscriptions operations.
+
+#### Test the Architecture
+
+`docker-compose up -d --build`
+
+This command will execute the *docker-compose.yml* script and build the images and containers to test the whole project.
 
 
