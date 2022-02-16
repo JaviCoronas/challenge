@@ -1,0 +1,83 @@
+def cluster = ""
+def service = ""
+def region = "eu-west-1"
+
+def github_repository = "https://github.com/JaviCoronas/challenge.git"
+def git_credentials = "credentials with webhook in github/Jenkins"
+def branch = ""
+def ecr_registry_url = ""
+def namespace = ""
+def docker_image_name = ""
+def task = ""
+
+// This env variable its needed to know were we want to maje the deploy. Set on Jenkins
+println("Environment: $destination_environment")
+
+if(destination_environment == 'dev'){
+    println("inside env Environment: $destination_environment")
+    cluster = 'challenge'
+    service = 'subs-service'
+    branch = 'develop'
+    namespace = 'challenge'
+    docker_image_name = 'chanllenge-microservice'
+    task = 'subs-service-task'
+}
+
+pipeline {
+    agent any
+    stages {
+        stage('Clone repository') {
+            steps {
+                script {
+                    checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]],
+                    doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],
+                    userRemoteConfigs: [[credentialsId: "${git_credentials}",
+                    url: "${github_repository}"]]])
+                }
+            }
+        } 
+        stage('Test project') {
+            steps {
+                script {
+                    sh "Testing the project."
+                    sh 'jest test'
+                }
+            }
+        }
+        
+        stage('Compile project') {
+            steps {
+                script {
+                    sh "echo Building project."
+                    sh "./npm install"
+                }
+            }
+        }
+
+        stage('Build, tag and push docker image to AWS') {
+            steps {
+                script {
+                    sh "aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${ecr_registry_url}"
+                    sh "aws ecr describe-repositories --region ${region} --repository-names ${namespace}/${docker_image_name} || aws ecr create-repository --region ${region} --repository-name ${namespace}/${docker_image_name}"
+                    docker.withRegistry("https://${ecr_registry_url}/") {
+                        def customImage = docker.build("${namespace}/${docker_image_name}:${env.BUILD_ID}")
+                        customImage.push()
+                        customImage.push("latest")
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    sh "aws ecs update-service --force-new-deployment --cluster ${cluster} --region ${region} --service ${service} --task-definition ${task} --desired-count 1"
+                }
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
