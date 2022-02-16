@@ -2,11 +2,11 @@
 
 ## Introduction
 
-The project has been developed to pass the technical test presented. It consists of 3 microservices that communicate with each other. The aim is to create a small subscription management structure and to demonstrate some of the knowledge of microservices distributed architectures.
+The project has been developed for technical testing. It consists of 3 microservices that communicate with each other. The aim is to create a small subscription management structure and to demonstrate some of the knowledge of distributed microservice architectures.
 
 The whole project was created with Node version 12 and Express as Framework. I have chosen Express because it is the most established framework on the market for creating faster server-side web applications.
 
-TypeScript was chosen as the language of choice because using a modern, typed language such as TypeScript enhances the development experience.
+TypeScript was chosen as the language in order to use a modern and typed language which improves the development experience.
 
 ## Requirements
 
@@ -33,9 +33,9 @@ In addition to this, each of the microservices can be run separately by followin
 
 ## Specifications
 
-The api specifications and published endpoints can be found at the following link: [API Specifications](http://localhost:40000/api-docs)
+The API specifications and published endpoints can be found at the following link: [API Specifications](http://localhost:40000/api-docs)
 
-If the project is not deployed you can find them at: _/public-service/api/api.yml_
+If the project is not deployed you can find the specifications at: _/public-service/api/api.yml_
 
 ## How to Test
 
@@ -47,10 +47,10 @@ Inside the three services you can find the _Jenkinsfile_ with the details to inc
 
 ![FLowChart](flowchart.png)
 
-In the following flowchart, you can see in broad outline what the flow for deployment looks like.
+In the flowchart above, you can see in broad outline what the flow for deployment looks like.
 
-As a summary, a push in branches (dev, qa, prod) triggers a pipeline in jenkins. 
-It executes the tasks of cloning the repository, compiling, testing and with the help of aws cli creates the repository in its infrastructure.
+As a summary, push in branches (dev, qa, prod) triggers a pipeline in jenkins. 
+It executes the tasks of cloning the repository, compiling, testing and with the help of AWS CLI creates the repository/container in its infrastructure.
 Once a new container image is uploaded to AWS, the service task is restarted with the new changes.
 
 ## Thank you
