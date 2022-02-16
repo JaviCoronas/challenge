@@ -15,7 +15,7 @@ services:
     restart: on-failure
     build: ./subscription-service/
     ports:
-      - "40001:40001"
+      - "40001:40003"
     env_file:
       - ./subscription-service/.env.qa
     links:
@@ -26,7 +26,7 @@ services:
     restart: on-failure
     build: ./email-service/
     ports:
-      - "40002:40002"
+      - "40002:40004"
     env_file:
       - ./email-service/.env
   mongo:
