@@ -17,7 +17,7 @@ export const saveSubscriptionController = async (request: Request, response: Res
         data: subscription
 
     }).then(res => {
-        response.status(httpStatus.OK).send(res.data as SubscriptionDetail)
+        response.status(httpStatus.CREATED).send(res.data as SubscriptionDetail)
     }).catch(error => {
         response.status(httpStatus.INTERNAL_SERVER_ERROR).json(new InternalServerException())
     })

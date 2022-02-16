@@ -15,7 +15,7 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
         jwt.decode(token, jwtsign, true, 'HS256')
         next()
     } catch (error) {
-        res.status(httpStatus.UNAUTHORIZED).json(new HttpException(httpStatus.UNAUTHORIZED, { code: "ERROR1002", message: "This token looks worng :(" }))
+        res.status(httpStatus.UNAUTHORIZED).json(new HttpException(httpStatus.UNAUTHORIZED, { code: "ERROR1002", message: "This token looks wrong :(" }))
         return;
     }
 }

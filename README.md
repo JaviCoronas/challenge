@@ -1,10 +1,10 @@
-# Micro Service Environment
+# Challenge Accepted
 
 ## Introduction
 
 The project has been developed to pass the technical test presented. It consists of 3 microservices that communicate with each other. The aim is to create a small subscription management structure and to demonstrate some of the knowledge of microservices distributed architectures.
 
-### Requirements
+## Requirements
 
 In order to download and fully test the project you will need the following tools installed on your computer:
 * Git
@@ -12,11 +12,13 @@ In order to download and fully test the project you will need the following tool
 * NPM v6
 * Docker
 
-### How to Install
+## How to Install
 
-Please, clone the reposotory from here or use the command:
+Please, clone the repository from here, or use the command:
 
 `git clone https://github.com/JaviCoronas/challenge`
+
+You can easily deploy all the architecture with the next command:
 
 `docker-compose up -d --build`
 
@@ -25,13 +27,17 @@ This command will execute the *docker-compose.yml* script and build the images a
 In addition to this, each of the microservices can be run separately by following the instructions detailed in their READMEs.
 
 
-### Specifications
+## Specifications
 
 The api specifications and published endpoints can be found at the following link: [API Specifications]: http://localhost:40000/api-docs
 
 If the project is not deployed you can find them at: _/public-service/api/api.yml_
 
-### CI/CD Pipeline
+## How to Test
+
+You can test the services with Postman or directly on [Swagger]: http://localhost:40000/api-docs
+
+## CI/CD Pipeline
 
 Inside the three services you can find the _Jenkinsfile_ with the details to include an CI/CD.
 
