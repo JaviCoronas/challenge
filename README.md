@@ -33,13 +33,13 @@ In addition to this, each of the microservices can be run separately by followin
 
 ## Specifications
 
-The api specifications and published endpoints can be found at the following link: [API Specifications]: http://localhost:40000/api-docs
+The api specifications and published endpoints can be found at the following link: [API Specifications](http://localhost:40000/api-docs)
 
 If the project is not deployed you can find them at: _/public-service/api/api.yml_
 
 ## How to Test
 
-You can test the services with Postman or directly on [Swagger]: http://localhost:40000/api-docs
+You can test the services with Postman or directly on [Swagger](http://localhost:40000/api-docs)
 
 ## CI/CD Pipeline
 

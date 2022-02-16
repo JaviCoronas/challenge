@@ -30,12 +30,6 @@ The service has JWT token security on some of its requests.
 
 ### Error handling
 
-The service includes error handling on login and subscriptions operations.
-
-#### Test the Architecture
-
-`docker-compose up -d --build`
-
-This command will execute the *docker-compose.yml* script and build the images and containers to test the whole project.
+The service includes error handling on subscriptions operations.
 
 
