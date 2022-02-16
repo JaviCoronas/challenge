@@ -20,8 +20,6 @@ export const saveSubscriptionController = async (request: Request, response: Res
 
 export const getSubscriptionsController = async (request: Request, response: Response) => {
     console.log("getSubscriptionController")
-    const urrrr = process.env.URL_SUBSCRIPTIONS as string
-    console.log(urrrr)
     const subscriptionRes = await axios({
         url: process.env.URL_SUBSCRIPTIONS as string,
         method: 'GET',

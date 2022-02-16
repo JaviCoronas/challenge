@@ -9,7 +9,7 @@ export function sendEmail(request: Request) {
     const jwtsign = process.env.JWT_SECRET as string
     const token = jwt.encode({ username: "email" }, jwtsign, 'HS256')
     axios({
-        url: 'http://localhost:40002/emails',
+        url: process.env.URL_EMAIL as string,
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token
