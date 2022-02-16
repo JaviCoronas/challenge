@@ -1,5 +1,6 @@
 # Challenge Accepted
 
+
 ## Introduction
 
 The project has been developed for technical testing. It consists of 3 microservices that communicate with each other. The aim is to create a small subscription management structure and to demonstrate some of the knowledge of distributed microservice architectures.
