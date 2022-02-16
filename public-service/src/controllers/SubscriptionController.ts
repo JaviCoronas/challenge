@@ -24,8 +24,7 @@ export const saveSubscriptionController = async (request: Request, response: Res
 }
 
 export const getSubscriptionsController = async (request: Request, response: Response) => {
-    console.log("getSubscriptionController")
-    await axios({
+    axios({
         url: process.env.URL_SUBSCRIPTIONS as string,
         method: 'GET',
         headers: {
@@ -39,7 +38,6 @@ export const getSubscriptionsController = async (request: Request, response: Res
 }
 
 export const getSubscriptionByIdController = async (request: Request, response: Response, next: NextFunction) => {
-    console.log("getSubscriptionByIdController")
     const { id } = request.params
     axios({
         url: process.env.URL_SUBSCRIPTIONS as string + '/' + id,
@@ -55,7 +53,6 @@ export const getSubscriptionByIdController = async (request: Request, response: 
 }
 
 export const cancelSubscriptionByIdController = async (request: Request, response: Response) => {
-    console.log("getSubscriptionByIdController")
     const { id } = request.params
     axios({
         url: process.env.URL_SUBSCRIPTIONS as string + '/' + id,

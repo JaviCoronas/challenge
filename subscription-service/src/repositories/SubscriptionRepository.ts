@@ -6,12 +6,9 @@ import * as mongoDB from "mongodb";
 class SubscriptionMongoRepository implements IRepository<Subscription> {
 
     public async cancelById(id: string): Promise<Subscription> {
-        console.log("cancelSubscription.SubscriptionMongoRepository")
-
         const collection = await this.getCollection();
         const sub = (await collection.updateOne({ "_id": new mongoDB.ObjectId(id) }, { $set: { "active": false } }))
         // Needed to create full subscription due to the implement of the interface.
-        console.log(sub)
         const test: Subscription = {
             id: id,
             firstName: "",
@@ -27,7 +24,6 @@ class SubscriptionMongoRepository implements IRepository<Subscription> {
     }
 
     public async save(obj: Subscription): Promise<Subscription> {
-        console.log("save.SubscriptionMongoRepository")
         const collection = await this.getCollection();
         const sub = await collection.insertOne(obj)
         // Needed to create full subscription due to the implement of the interface.
@@ -46,7 +42,6 @@ class SubscriptionMongoRepository implements IRepository<Subscription> {
     }
 
     public async getAll(): Promise<Subscription[]> {
-        console.log("getAll.SubscriptionMongoRepository")
         const collection = await this.getCollection();
         const subs = await collection.find().toArray() as unknown as Subscription[]
 
@@ -54,7 +49,6 @@ class SubscriptionMongoRepository implements IRepository<Subscription> {
     }
 
     public async findById(id: string): Promise<Subscription> {
-        console.log("findById.SubscriptionMongoRepository")
         const collection = await this.getCollection();
         const sub = (await collection.findOne({ "_id": new mongoDB.ObjectId(id) })) as unknown as Subscription
 

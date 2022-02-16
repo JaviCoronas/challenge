@@ -9,11 +9,9 @@ interface ILogin {
 }
 
 const LoginController = async (request: Request, response: Response, next: NextFunction) => {
-    console.log("login")
     const jwtsign = process.env.JWT_SECRET as string
 
     const body = request.body as ILogin
-    console.log(body.username)
     //TODO: Integration with login Service
     if (body.username == "admin" && body.password == "admin") {
         try {

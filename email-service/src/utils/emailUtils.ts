@@ -13,8 +13,6 @@ export function sendSubscriptionEmail(sub: Subscription) {
         text: 'Thank you!!!' + sub.firstName + ". You are subscribed to Adidas Newsletter",
     };
     mailer.sendMail(mailOptions, (error, info: SMTPTransport.SentMessageInfo) => {
-        if (error) console.log(error)
-        console.log("success")
     });
 }
 
