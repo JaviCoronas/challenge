@@ -7,7 +7,7 @@ import SubscriptionNotFoundException from '../exceptions/SubscriptionNotFoundExc
 import InternalServerException from '../exceptions/InternalServerException';
 import Subscription, { isvalid } from '../models/Subscription';
 import SubscriptionDetail from '../models/SubscriptionDetail';
-import { sendToRabbit } from '../services/producer';
+import { sendToRabbit } from '../services/rabbitmq';
 import BadRequestException from '../exceptions/BadRequest';
 
 export const saveSubscriptionController = async (request: Request, response: Response) => {

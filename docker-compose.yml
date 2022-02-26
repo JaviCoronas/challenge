@@ -32,7 +32,7 @@ services:
     ports:
       - "40002:40004"
     env_file:
-      - ./email-service/.env
+      - ./email-service/.env.qa
     depends_on:
       - rabbitmq
   mongo:

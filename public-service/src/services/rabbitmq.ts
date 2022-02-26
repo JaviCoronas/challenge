@@ -1,14 +1,11 @@
 import client, { Connection, Channel } from 'amqplib'
 
-
 export const sendToRabbit = async (body: any) => {
-    console.log("send to rabbit")
     const connection: Connection = await client.connect(
-        'amqp://guest:guest@my-rabbit:5672'
+        `amqp://${process.env.RABBITMQ_USER}:${process.env.RABBITMQ_PASS}@${process.env.RABBITMQ_HOST}:5672`
     )
-    // Create a channel
     const channel: Channel = await connection.createChannel()
     // Makes the queue available to the client
-    await channel.assertQueue('public-service')
-    channel.sendToQueue('public-service', Buffer.from(JSON.stringify(body)))
+    await channel.assertQueue('subscription-queue')
+    channel.sendToQueue('subscription-queue', Buffer.from(JSON.stringify(body)))
 }
