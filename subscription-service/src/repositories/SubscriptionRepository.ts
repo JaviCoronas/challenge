@@ -7,7 +7,7 @@ class SubscriptionMongoRepository implements IRepository<Subscription> {
 
     public async cancelById(id: string): Promise<Subscription> {
         const collection = await this.getCollection();
-        const sub = (await collection.updateOne({ "_id": new mongoDB.ObjectId(id) }, { $set: { "active": false } }))
+        const sub = (await collection.updateOne({ "id": id }, { $set: { "active": false } }))
         // Needed to create full subscription due to the implement of the interface.
         const test: Subscription = {
             id: id,
@@ -26,9 +26,11 @@ class SubscriptionMongoRepository implements IRepository<Subscription> {
     public async save(obj: Subscription): Promise<Subscription> {
         const collection = await this.getCollection();
         const sub = await collection.insertOne(obj)
+        console.log(obj)
+        console.log(sub)
         // Needed to create full subscription due to the implement of the interface.
         const subReturn: Subscription = {
-            id: sub.insertedId.toString(),
+            id: obj.id,
             firstName: "",
             email: "",
             gender: genderType.FEMALE,
@@ -50,7 +52,7 @@ class SubscriptionMongoRepository implements IRepository<Subscription> {
 
     public async findById(id: string): Promise<Subscription> {
         const collection = await this.getCollection();
-        const sub = (await collection.findOne({ "_id": new mongoDB.ObjectId(id) })) as unknown as Subscription
+        const sub = (await collection.findOne({ "id": id })) as unknown as Subscription
 
         return sub;
     }

@@ -23,7 +23,7 @@ export const cancelSubscriptionById = (subRepo: IRepository<Subscription>) => as
 // Needed due to mongo models. Converter
 function subscriptionToDTO(item: any): Subscription {
     const subRetur: Subscription = {
-        id: item._id.toString(),
+        id: item.id,
         firstName: item.firstName,
         gender: item.gender,
         email: item.email,

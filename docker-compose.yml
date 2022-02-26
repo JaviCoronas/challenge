@@ -10,6 +10,8 @@ services:
       - ./public-service/.env.qa
     links:
       - subscription
+    depends_on:
+      - rabbitmq
   subscription:
     container_name: subscription
     restart: on-failure
@@ -21,6 +23,8 @@ services:
     links:
       - mongo
       - email
+    depends_on:
+      - rabbitmq
   email:
     container_name: email
     restart: on-failure
@@ -40,3 +44,14 @@ services:
     hostname: mongoclient
     ports:
       - 3300:3000
+  rabbitmq:
+    image: rabbitmq:3.9.13-management-alpine
+    container_name: 'rabbitmq'
+    restart: always
+    environment:
+      - "RABBITMQ_DEFAULT_PASS=guest"
+      - "RABBITMQ_DEFAULT_USER=guest"
+    ports:
+      - 15672:15672
+      - 5672:5672
+    hostname: my-rabbit

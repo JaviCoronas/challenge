@@ -24,7 +24,7 @@ export const saveSubscriptionController = async (request: Request, response: Res
 export const getSubscriptionController = async (request: Request, response: Response) => {
     try {
         const subscriptionRes = await subService.getSubscriptions() as Subscription[] | null
-
+        console.log(subscriptionRes)
         response.status(httpStatus.OK).send(subscriptionRes)
     } catch (error) {
         response.status(httpStatus.INTERNAL_SERVER_ERROR).send(new InternalServerException())
