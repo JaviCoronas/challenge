@@ -2,34 +2,29 @@ import axios from 'axios';
 import { Response, Request, NextFunction } from 'express';
 import httpStatus from 'http-status';
 import { v4 as uuidv4 } from 'uuid';
+
 import SubscriptionNotFoundException from '../exceptions/SubscriptionNotFoundException';
 import InternalServerException from '../exceptions/InternalServerException';
-import Subscription from '../models/Subscription';
+import Subscription, { isvalid } from '../models/Subscription';
 import SubscriptionDetail from '../models/SubscriptionDetail';
 import { sendToRabbit } from '../services/producer';
+import BadRequestException from '../exceptions/BadRequest';
 
 export const saveSubscriptionController = async (request: Request, response: Response) => {
     const subscription = request.body as Subscription;
     subscription.id = uuidv4()
-    /*
-    axios({
-        url: process.env.URL_SUBSCRIPTIONS as string,
-        method: 'POST',
-        data: subscription
-
-    }).then(res => {
-        response.status(httpStatus.CREATED).send(res.data as SubscriptionDetail)
-    }).catch(error => {
-        response.status(httpStatus.INTERNAL_SERVER_ERROR).json(new InternalServerException())
-    })
-    */
-    sendToRabbit(subscription)
-    const subDetail: SubscriptionDetail = { id: subscription.id }
-    response.status(httpStatus.CREATED).send(subDetail)
+    if (isvalid(subscription)) {
+        sendToRabbit(subscription)
+        const subDetail: SubscriptionDetail = { id: subscription.id }
+        response.status(httpStatus.CREATED).send(subDetail)
+    }
+    else {
+        response.status(httpStatus.BAD_REQUEST).json(new BadRequestException())
+    }
 }
 
 export const getSubscriptionsController = async (request: Request, response: Response) => {
-    axios({
+    await axios({
         url: process.env.URL_SUBSCRIPTIONS as string,
         method: 'GET',
         headers: {
@@ -44,7 +39,7 @@ export const getSubscriptionsController = async (request: Request, response: Res
 
 export const getSubscriptionByIdController = async (request: Request, response: Response, next: NextFunction) => {
     const { id } = request.params
-    axios({
+    await axios({
         url: process.env.URL_SUBSCRIPTIONS as string + '/' + id,
         method: 'GET',
         headers: {
@@ -59,7 +54,7 @@ export const getSubscriptionByIdController = async (request: Request, response: 
 
 export const cancelSubscriptionByIdController = async (request: Request, response: Response) => {
     const { id } = request.params
-    axios({
+    await axios({
         url: process.env.URL_SUBSCRIPTIONS as string + '/' + id,
         method: 'PUT',
     }).then(res => {
