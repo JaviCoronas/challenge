@@ -1,11 +1,9 @@
 import { Response, Request } from 'express';
 import httpStatus from 'http-status';
-import HttpException from '../exceptions/HttpException';
 import InternalServerException from '../exceptions/InternalServerException';
 import SubscriptionNotFoundException from '../exceptions/SubscriptionNotFoundException';
 import Subscription from '../models/Subscription';
 import SubscriptionDetail from '../models/SubscriptionDetail';
-import { sendEmail } from '../utils/sendEmail';
 
 const subService = require('../services/index')
 

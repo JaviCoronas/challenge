@@ -10,7 +10,7 @@ export function sendSubscriptionEmail(sub: Subscription) {
         from: '"Adidas Team "',
         to: sub.email,
         subject: `Adidas Newsletter`,
-        text: 'Thank you!!!' + sub.firstName + ". You are subscribed to Adidas Newsletter",
+        text: 'Thank you!!! ' + sub.firstName + ". You are subscribed to Adidas Newsletter",
     };
     mailer.sendMail(mailOptions, (error, info: SMTPTransport.SentMessageInfo) => {
     });
