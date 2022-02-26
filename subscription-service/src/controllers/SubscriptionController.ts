@@ -9,18 +9,6 @@ import { sendEmail } from '../utils/sendEmail';
 
 const subService = require('../services/index')
 
-export const saveSubscriptionController = async (request: Request, response: Response) => {
-    const subscription = request.body as Subscription;
-    try {
-        const subscriptionRes = await subService.saveSubscription(subscription)
-        const subId: SubscriptionDetail = { id: subscriptionRes.id }
-        sendEmail(request)
-        response.status(httpStatus.CREATED).send(subId)
-    } catch (error) {
-        response.status(httpStatus.INTERNAL_SERVER_ERROR).send(new InternalServerException())
-    }
-}
-
 export const getSubscriptionController = async (request: Request, response: Response) => {
     try {
         const subscriptionRes = await subService.getSubscriptions() as Subscription[] | null

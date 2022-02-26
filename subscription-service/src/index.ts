@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import dotEnv from 'dotenv';
 import { subscriptionRoutes } from './routes/subscriptionRoutes';
 import { errorHandler } from './exceptions/errorHandler';
-import { consumeRabbitMQ } from './services/consumer';
+import { consumeRabbitMQ } from './services/rabbitmq';
 
 
 const app = express();

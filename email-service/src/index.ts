@@ -4,6 +4,7 @@ import dotEnv from 'dotenv';
 
 import EmailController from './controllers/EmailController';
 import { checkJwt } from './utils/checkJwt';
+import { consumeRabbitMQ } from './services/rabbitmq';
 
 
 const app = express();
@@ -12,7 +13,7 @@ app.use(bodyParser.json());
 
 const PORT = process.env.SERVER_PORT;
 
-app.post('/emails', checkJwt, EmailController)
+consumeRabbitMQ()
 
 app.listen(PORT, () => {
     console.log(`Email server started at port: ${PORT}`);
