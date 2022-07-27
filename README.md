@@ -53,8 +53,3 @@ In the flowchart above, you can see in broad outline what the flow for deploymen
 As a summary, push in branches (dev, qa, prod) triggers a pipeline in jenkins. 
 It executes the tasks of cloning the repository, compiling, testing and with the help of AWS CLI creates the repository/container in its infrastructure.
 Once a new container image is uploaded to AWS, the service task is restarted with the new changes.
-
-## Thank you
-
-Thank you for giving me the opportunity to do the challenge. I hope you enjoy it and I will be happy to explain any doubts or questions you may have about it.
-
